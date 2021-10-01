@@ -7,12 +7,13 @@ import "./Search.scss";
 const Search = () => {
   const searchKeyword = useRef("");
 
-  const { addKeyword, url } = useContext(SearchContext);
+  const { addKeyword, urlCallback } = useContext(SearchContext);
 
   const searchHandler = (event) => {
     if (event !== undefined) {
       event.preventDefault();
       addKeyword("keywords", searchKeyword.current.value);
+      urlCallback();
       console.log("Search");
       searchKeyword.current.value = "";
     }

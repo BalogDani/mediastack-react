@@ -4,29 +4,41 @@ export const SearchContext = React.createContext({
   addKeyword: () => {},
   isLoading: true,
   loadedCategories: [],
-  url: "",
+  // url: "",
   error: null,
+  myUrl: new URL(
+    // "http://api.mediastack.com/v1/news"
+    "https://tech-sport-b56c8-default-rtdb.firebaseio.com/tech.json" // Alternative url
+  ),
+  urlCallback: () => {},
 });
 
 const SearchContextProvider = (props) => {
   const url = new URL(
-    // "http://api.mediastack.com/v1/news"
-    "https://tech-sport-b56c8-default-rtdb.firebaseio.com/tech.json" // Alternative url
+    "http://api.mediastack.com/v1/news"
+    // "https://tech-sport-b56c8-default-rtdb.firebaseio.com/tech.json" // Alternative url
   );
   url.searchParams.append("access_key", "5af1e63e9a585be7f7e6eee596ba2679");
   url.searchParams.append("languages", "en");
 
-  const [myUrl, setMyUrl] = useState("");
+  const [myUrl, setMyUrl] = useState(url);
 
   const addKeyword = (keyword, parameter) => {
-    url.searchParams.append(keyword, parameter);
     if (keyword === undefined) {
       return myUrl;
     }
-    setMyUrl(url.href);
+    console.log("the new", url.href);
+    setMyUrl(() => {
+      // console.log("PREVURL", prevUrl);
+      if (myUrl !== undefined) {
+        myUrl.searchParams.append(keyword, parameter);
+      }
+      return myUrl;
+    });
     console.log("keyword", keyword, "parameter", parameter);
     console.log("addkeyword: ", myUrl);
-    return myUrl;
+    // urlCallback();
+    // return myUrl;
   };
 
   const [isLoading, setIsLoading] = useState(true);
@@ -38,17 +50,17 @@ const SearchContextProvider = (props) => {
     setIsLoading(true);
     setError(null);
 
-    addKeyword();
+    // addKeyword();
     try {
-      const response = await fetch(url);
-      console.log("After response: ", url.href);
+      const response = await fetch(myUrl);
+      console.log("After response: ", myUrl.href);
 
       if (!response.ok) {
         throw new Error("Something went wrong! ");
       }
 
       const data = await response.json();
-      console.log("After resp OK: ", url.href);
+      console.log("After resp OK: ", myUrl.href);
       console.log(data);
 
       const categories = [];
@@ -68,17 +80,19 @@ const SearchContextProvider = (props) => {
     setIsLoading(false);
   }, [setIsLoading]); // Struggling with the demons of Callback Hell... :(
 
-  useEffect(() => {
-    urlCallback();
-    console.log("urlCallback");
-  }, [urlCallback]);
+  // useEffect(() => {
+  //   urlCallback();
+  //   console.log("urlCallback");
+  // }, []);
 
   const contextValue = {
     addKeyword: addKeyword,
-    url: url,
+    // url: url,
     isLoading: isLoading,
     loadedCategories: loadedCategories,
     error: error,
+    myUrl: myUrl,
+    urlCallback: urlCallback,
   };
 
   return (

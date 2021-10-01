@@ -8,7 +8,7 @@ const OrderBy = (props) => {
   const searchHandler = (event) => {
     event.preventDefault();
     console.log("succ");
-    addKeyword("sort", props.sort);
+    // addKeyword("sort", props.sort);
     // searchKeyword.current.value = "";
   };
   return (
