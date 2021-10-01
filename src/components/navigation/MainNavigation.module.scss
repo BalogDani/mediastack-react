@@ -1,0 +1,24 @@
+@import "~bootstrap/scss/bootstrap";
+
+@media (prefers-reduced-motion: no-preference) {
+  .appLogo {
+    animation: appLogo-spin infinite 20s linear;
+  }
+}
+
+@keyframes appLogo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.left {
+  width: 60%;
+}
+
+.right {
+  width: 40%;
+}

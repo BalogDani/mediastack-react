@@ -1,0 +1,28 @@
+.search {
+  width: 50%;
+}
+
+.right {
+  width: 25%;
+}
+
+.class {
+  background-color: #212529;
+  border-color: #ffc107;
+  border-radius: 8%;
+  color: #ffc107;
+}
+
+.orderBy {
+  background-color: #343a40;
+  color: white;
+  border: none;
+}
+
+// .children {
+//   text-decoration: none;
+// }
+
+.class:hover {
+  text-decoration: underline;
+}
