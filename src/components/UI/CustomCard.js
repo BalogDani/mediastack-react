@@ -2,6 +2,7 @@ import { Card, ListGroup } from "react-bootstrap";
 import "./CustomCard.scss";
 import CustomImg from "./CustomImage";
 import ButtonLayout from "../layout/ButtonLayout";
+import { Link } from "react-router-dom";
 
 const CustomCard = (props) => {
   let author = "There is none";
@@ -63,7 +64,12 @@ const CustomCard = (props) => {
           Published at: {convertFromStringToDate(props.published_at)}
         </p>
         <ButtonLayout className="right">
-          <a href={props.url}>Original Article</a>
+          <Link
+            target="_blank"
+            to={(location) => ({ ...location, pathname: props.url })}
+          >
+            Original Article
+          </Link>
         </ButtonLayout>
       </Card.Body>
     </Card>
