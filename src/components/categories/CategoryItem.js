@@ -1,5 +1,3 @@
-// import Card from "../UI/Card";
-
 import CustomCard from "../UI/CustomCard";
 
 const CategoryItem = (props) => {

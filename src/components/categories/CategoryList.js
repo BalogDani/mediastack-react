@@ -22,7 +22,6 @@ const CategoryList = (props) => {
                 image={data[keyName].image}
                 url={data[keyName].url}
                 source={data[keyName].source}
-                category={data[keyName].category} // Remove this
               />
             );
           }

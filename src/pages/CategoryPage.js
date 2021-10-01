@@ -8,58 +8,18 @@ const CategoryPage = (props) => {
   const { addKeyword, isLoading, loadedCategories, error, urlCallback } =
     useContext(SearchContext);
 
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [loadedCategories, setLoadedCategories] = useState([]);
-
-  // const [error, setError] = useState(null);
-
-  // const urlCallback = useCallback(() => {
-  //   //   setIsLoading(true);
-  //   //   setError(null);
-  //   console.log("CategoryPage");
   useEffect(() => {
     addKeyword("categories", props.category);
     urlCallback();
   }, []);
-  //   try {
-  //     const response = await fetch(url);
-  //     // console.log(url);
-
-  //     if (!response.ok) {
-  //       throw new Error("Something went wrong! ");
-  //     }
-
-  //     const data = await response.json();
-  //     console.log(data);
-
-  //     const categories = [];
-
-  //     for (const key in data) {
-  //       const category = {
-  //         ...data[key],
-  //       };
-  //       categories.push(category);
-  //     }
-
-  //     setIsLoading(false);
-  //     setLoadedCategories(categories);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  //   setIsLoading(false);
-  // }, [props.category]);
-
-  // useEffect(() => {
-  //   urlCallback();
-  // }, [urlCallback]);
 
   if (error) {
-    // return (
-    //   <>
-    //     <br />
-    //     <p>{error}</p>               // Error handling must to be finished later
-    //   </>
-    // );
+    return (
+      <>
+        <br />
+        <p>{error}</p> // Error handling must to be finished later
+      </>
+    );
   }
 
   if (isLoading) {

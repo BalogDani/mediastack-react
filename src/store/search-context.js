@@ -4,11 +4,10 @@ export const SearchContext = React.createContext({
   addKeyword: () => {},
   isLoading: true,
   loadedCategories: [],
-  // url: "",
   error: null,
   myUrl: new URL(
-    // "http://api.mediastack.com/v1/news"
-    "https://tech-sport-b56c8-default-rtdb.firebaseio.com/tech.json" // Alternative url
+    "http://api.mediastack.com/v1/news"
+    // "https://tech-sport-b56c8-default-rtdb.firebaseio.com/tech.json" // Alternative url to avoid an infinite loop problem
   ),
   urlCallback: () => {},
 });
@@ -16,7 +15,7 @@ export const SearchContext = React.createContext({
 const SearchContextProvider = (props) => {
   const url = new URL(
     "http://api.mediastack.com/v1/news"
-    // "https://tech-sport-b56c8-default-rtdb.firebaseio.com/tech.json" // Alternative url
+    // "https://tech-sport-b56c8-default-rtdb.firebaseio.com/tech.json" // Alternative url to avoid an infinite loop problem
   );
   url.searchParams.append("access_key", "5af1e63e9a585be7f7e6eee596ba2679");
   url.searchParams.append("languages", "en");
@@ -29,7 +28,6 @@ const SearchContextProvider = (props) => {
     }
     console.log("the new", url.href);
     setMyUrl(() => {
-      // console.log("PREVURL", prevUrl);
       if (myUrl !== undefined) {
         myUrl.searchParams.append(keyword, parameter);
       }
@@ -37,8 +35,6 @@ const SearchContextProvider = (props) => {
     });
     console.log("keyword", keyword, "parameter", parameter);
     console.log("addkeyword: ", myUrl);
-    // urlCallback();
-    // return myUrl;
   };
 
   const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +46,6 @@ const SearchContextProvider = (props) => {
     setIsLoading(true);
     setError(null);
 
-    // addKeyword();
     try {
       const response = await fetch(myUrl);
       console.log("After response: ", myUrl.href);
@@ -78,16 +73,10 @@ const SearchContextProvider = (props) => {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [setIsLoading]); // Struggling with the demons of Callback Hell... :(
-
-  // useEffect(() => {
-  //   urlCallback();
-  //   console.log("urlCallback");
-  // }, []);
+  }, [setIsLoading]); // Struggling with the demons of Callback Hell... :( BUT SOLVED IT!!! :D
 
   const contextValue = {
     addKeyword: addKeyword,
-    // url: url,
     isLoading: isLoading,
     loadedCategories: loadedCategories,
     error: error,
