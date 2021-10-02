@@ -13,12 +13,22 @@ const CategoryPage = (props) => {
     urlCallback();
   }, []);
 
-  // Error handling must to be finished later
   if (error) {
     return (
       <>
         <br />
-        <p>{error}</p>
+        <br />
+        <Card
+          border="dark border-2 rounded"
+          style={{ width: "auto" }}
+          bg="secondary"
+          text="white"
+          className="mb-2"
+        >
+          <Card.Body>
+            <h2>Error: {error}</h2>
+          </Card.Body>
+        </Card>
       </>
     );
   }

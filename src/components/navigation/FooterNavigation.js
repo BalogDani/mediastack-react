@@ -1,13 +1,12 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import OrderBy from "../UI/OrderBy";
+import "./FooterNavigation.scss";
 
-const FooterNavigation = () => {
+const FooterNavigation = (props) => {
   return (
     <Navbar bg="dark" variant="dark" fixed="bottom">
-      <Container>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
-        <Nav className="me-auto left">
+      <Container className="justify-content-center">
+        <Nav>
           <NavDropdown
             title="Sort articles by date of publish"
             id="basic-nav-dropdown"
@@ -22,6 +21,7 @@ const FooterNavigation = () => {
               <OrderBy by="Ascendening" sort="published_asc" />
             </NavDropdown.Item>
           </NavDropdown>
+          <Nav.Item className="pagination">{props.children}</Nav.Item>
         </Nav>
       </Container>
     </Navbar>
