@@ -14,7 +14,6 @@ const Search = () => {
       event.preventDefault();
       addKeyword("keywords", searchKeyword.current.value);
       urlCallback();
-      console.log("Search");
       searchKeyword.current.value = "";
     }
   };

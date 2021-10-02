@@ -24,17 +24,41 @@ const SearchContextProvider = (props) => {
 
   const addKeyword = (keyword, parameter) => {
     if (keyword === undefined) {
-      return myUrl;
+      return;
     }
-    console.log("the new", url.href);
-    setMyUrl(() => {
-      if (myUrl !== undefined) {
-        myUrl.searchParams.append(keyword, parameter);
+
+    var searchParams = new URLSearchParams(myUrl.search);
+    // console.log("Original search: ", myUrl.search);
+
+    let keysAreEqual = false;
+    searchParams.forEach(function (value, key) {
+      // console.log("Original: ", key, value);
+      if (key === keyword && value === parameter) {
+        keysAreEqual = true;
+      } else if (key === keyword) {
+        keysAreEqual = true;
+        console.log(key, " = ", keyword);
+        value = parameter;
+        setMyUrl(() => {
+          if (myUrl !== undefined) {
+            myUrl.searchParams.set(keyword, parameter);
+          }
+          return myUrl;
+        });
+        // console.log("Modified: ", key, value);
       }
-      return myUrl;
     });
-    console.log("keyword", keyword, "parameter", parameter);
-    console.log("addkeyword: ", myUrl);
+
+    if (keysAreEqual === false) {
+      setMyUrl(() => {
+        if (myUrl !== undefined) {
+          myUrl.searchParams.append(keyword, parameter);
+        }
+        return myUrl;
+      });
+    }
+
+    // console.log("Modified search: ", myUrl.search);
   };
 
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +72,7 @@ const SearchContextProvider = (props) => {
 
     try {
       const response = await fetch(myUrl);
-      console.log("After response: ", myUrl.href);
+      // console.log("After response: ", myUrl.href);
 
       if (!response.ok) {
         throw new Error("Something went wrong! ");
@@ -56,7 +80,7 @@ const SearchContextProvider = (props) => {
 
       const data = await response.json();
       console.log("After resp OK: ", myUrl.href);
-      console.log(data);
+      console.log("Data after resp OK: ", data);
 
       const categories = [];
 
