@@ -378,8 +378,8 @@ console.log(
 
 const SearchContextProvider = (props) => {
   const url = new URL(
-    // "http://api.mediastack.com/v1/news"
-    "https://tech-sport-b56c8-default-rtdb.firebaseio.com/tech.json" // Alternative url to avoid an infinite loop problem
+    "http://api.mediastack.com/v1/news"
+    // "https://tech-sport-b56c8-default-rtdb.firebaseio.com/tech.json" // Alternative url to avoid an infinite loop problem
   );
   url.searchParams.append("access_key", "5af1e63e9a585be7f7e6eee596ba2679");
   url.searchParams.append("languages", "en");
