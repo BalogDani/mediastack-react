@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Card, Spinner } from "react-bootstrap";
 import CategoryList from "../components/categories/CategoryList";
 import { SearchContext } from "../store/search-context";
@@ -13,11 +13,12 @@ const CategoryPage = (props) => {
     urlCallback();
   }, []);
 
+  // Error handling must to be finished later
   if (error) {
     return (
       <>
         <br />
-        <p>{error}</p> // Error handling must to be finished later
+        <p>{error}</p>
       </>
     );
   }

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 export const SearchContext = React.createContext({
   addKeyword: () => {},
@@ -73,7 +73,7 @@ const SearchContextProvider = (props) => {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [setIsLoading]); // Struggling with the demons of Callback Hell... :( BUT SOLVED IT!!! :D
+  }, [setIsLoading, myUrl]); // Struggling with the demons of Callback Hell... :( BUT SOLVED IT!!! :D
 
   const contextValue = {
     addKeyword: addKeyword,
