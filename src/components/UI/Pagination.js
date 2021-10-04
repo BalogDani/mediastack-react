@@ -6,16 +6,25 @@ const PaginationBasic = () => {
   const { setPage, numberOfPages, loadedCategories } =
     useContext(SearchContext);
 
-  const setPageHandler = (event) => {
-    event.preventDefault();
-    setPage();
-    console.log("Page number");
-  };
-
-  // const [pages] = useState(Math.round(data.length / dataLimit));
   const [currentPage, setCurrentPage] = useState(1);
 
-  const limit = 10;
+  const limit = 7;
+
+  // const setPageHandler = (event) => {
+  //   event.preventDefault();
+  //   setPage();
+  //   console.log("Page number");
+  // addKeyword("keywords", searchKeyword.current.value);
+  //     urlCallback();
+  // };
+
+  function goToFirstPage() {
+    setCurrentPage((page) => (page = 1));
+  }
+
+  function goToLastPage() {
+    setCurrentPage((page) => (page = numberOfPages));
+  }
 
   function goToNextPage() {
     setCurrentPage((page) => page + 1);
@@ -30,29 +39,34 @@ const PaginationBasic = () => {
     setCurrentPage(pageNumber);
   }
 
-  // const getPaginatedData = () => {
-  //   const startIndex =
-  //     currentPage * loadedCategories[0].limit - loadedCategories[0].limit;
-  //   const endIndex = startIndex + loadedCategories[0].limit;
-  //   return data.slice(startIndex, endIndex);
-  // };
-
   const getPaginationGroup = () => {
-    let start =
-      Math.floor((currentPage - 1) / limit) *
-      // loadedCategories[0].limit;
-      limit;
-    return new Array(limit).fill().map((_, idx) => start + idx + 1);
+    let start = Math.floor((currentPage - 1) / limit) * limit;
+    console.log("start", start);
+    let paginationArray = [];
+    if (start <= numberOfPages - limit) {
+      paginationArray = new Array(limit).fill().map((_, idx) => {
+        return start + idx + 1;
+      });
+    } else {
+      paginationArray = new Array(numberOfPages - start)
+        .fill()
+        .map((_, idx) => {
+          return start + idx + 1;
+        });
+    }
+    return paginationArray;
   };
 
   return (
     <Pagination>
-      {/* <Pagination.First /> */}
+      <Pagination.First
+        onClick={goToFirstPage}
+        className={`first ${currentPage === 1 ? "disabled" : ""}`}
+      />
       <Pagination.Prev
         onClick={goToPreviousPage}
         className={`prev ${currentPage === 1 ? "disabled" : ""}`}
       />
-      {/* <Pagination.Ellipsis /> */}
 
       {getPaginationGroup().map((item, index) => (
         <Pagination.Item
@@ -64,10 +78,13 @@ const PaginationBasic = () => {
         </Pagination.Item>
       ))}
 
-      {/* <Pagination.Ellipsis /> */}
       <Pagination.Next
         onClick={goToNextPage}
-        className={`next ${currentPage === limit ? "disabled" : ""}`}
+        className={`next ${currentPage === numberOfPages ? "disabled" : ""}`}
+      />
+      <Pagination.Last
+        onClick={goToLastPage}
+        className={`last ${currentPage === numberOfPages ? "disabled" : ""}`}
       />
     </Pagination>
   );

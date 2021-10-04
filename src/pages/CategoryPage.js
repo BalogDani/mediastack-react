@@ -10,6 +10,7 @@ const CategoryPage = (props) => {
 
   useEffect(() => {
     addKeyword("categories", props.category);
+    addKeyword("limit", 10);
     urlCallback();
   }, []);
 
@@ -72,6 +73,7 @@ const CategoryPage = (props) => {
         </Card>
         <br />
         <CategoryList categories={loadedCategories} />
+        <br />
       </section>
     </>
   );
