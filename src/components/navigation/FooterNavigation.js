@@ -1,5 +1,6 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import OrderBy from "../UI/OrderBy";
+import PaginationBasic from "../UI/Pagination";
 import "./FooterNavigation.scss";
 
 const FooterNavigation = (props) => {
@@ -21,7 +22,9 @@ const FooterNavigation = (props) => {
               <OrderBy by="Ascendening" sort="published_asc" />
             </NavDropdown.Item>
           </NavDropdown>
-          <Nav.Item className="pagination">{props.children}</Nav.Item>
+          <Nav.Item className="pagination">
+            <PaginationBasic />
+          </Nav.Item>
         </Nav>
       </Container>
     </Navbar>

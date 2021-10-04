@@ -3,10 +3,19 @@
   border-color: #6c757d;
   color: #6c757d;
   border-radius: 8%;
+  margin: 0;
 }
 
-#activePage {
+.activePage :only-child {
   background-color: #6c757d;
   border-color: #212529;
   color: #212529;
+}
+
+.prev.disabled :last-child,
+.next.disabled :first-child {
+  pointer-events: none;
+  box-shadow: none;
+  background-color: #212529;
+  border-color: #212529;
 }
