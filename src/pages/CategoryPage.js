@@ -5,13 +5,12 @@ import { SearchContext } from "../store/search-context";
 import "./CategoryPage.scss";
 
 const CategoryPage = (props) => {
-  const { addKeyword, isLoading, loadedCategories, error, urlCallback } =
+  const { limit, addKeyword, isLoading, loadedCategories, error, urlCallback } =
     useContext(SearchContext);
 
   useEffect(() => {
     addKeyword("categories", props.category);
-    addKeyword("limit", 10);
-    urlCallback();
+    addKeyword("limit", limit);
   }, []);
 
   if (error) {

@@ -1,47 +1,49 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { SearchContext } from "../../store/search-context";
 
 const PaginationBasic = () => {
-  const { setPage, numberOfPages, loadedCategories } =
+  const { limit, numberOfPages, addKeyword, urlCallback } =
     useContext(SearchContext);
+
+  const [offset, setOffset] = useState(0);
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const limit = 7;
-
-  // const setPageHandler = (event) => {
-  //   event.preventDefault();
-  //   setPage();
-  //   console.log("Page number");
-  // addKeyword("keywords", searchKeyword.current.value);
-  //     urlCallback();
-  // };
+  useEffect(() => {
+    addKeyword("offset", offset);
+    // console.log("off: ", offset, "curPage: ", currentPage);
+    urlCallback();
+  }, [offset]);
 
   function goToFirstPage() {
     setCurrentPage((page) => (page = 1));
+    setOffset((offset) => (offset = 0));
   }
 
   function goToLastPage() {
     setCurrentPage((page) => (page = numberOfPages));
+    setOffset((offset) => (offset = Math.floor((numberOfPages - 1) * limit)));
   }
 
   function goToNextPage() {
     setCurrentPage((page) => page + 1);
+    setOffset((offset) => (offset = Math.floor(currentPage * limit)));
   }
 
   function goToPreviousPage() {
     setCurrentPage((page) => page - 1);
+    setOffset((offset) => (offset = Math.floor((currentPage - 2) * limit)));
   }
 
   function changePage(event) {
     const pageNumber = Number(event.target.textContent);
     setCurrentPage(pageNumber);
+    setOffset((offset) => (offset = Math.floor((pageNumber - 1) * limit)));
   }
 
   const getPaginationGroup = () => {
     let start = Math.floor((currentPage - 1) / limit) * limit;
-    console.log("start", start);
     let paginationArray = [];
     if (start <= numberOfPages - limit) {
       paginationArray = new Array(limit).fill().map((_, idx) => {

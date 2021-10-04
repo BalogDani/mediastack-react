@@ -10,12 +10,9 @@ const Search = () => {
   const { addKeyword, urlCallback } = useContext(SearchContext);
 
   const searchHandler = (event) => {
-    if (event !== undefined) {
-      event.preventDefault();
-      addKeyword("keywords", searchKeyword.current.value);
-      urlCallback();
-      searchKeyword.current.value = "";
-    }
+    addKeyword("keywords", searchKeyword.current.value);
+    urlCallback();
+    searchKeyword.current.value = "";
   };
 
   return (

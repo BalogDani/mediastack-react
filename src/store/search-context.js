@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 
 export const SearchContext = React.createContext({
+  limit: 7,
   addKeyword: () => {},
   isLoading: true,
   loadedCategories: [],
@@ -11,10 +12,11 @@ export const SearchContext = React.createContext({
   ),
   urlCallback: () => {},
   numberOfPages: null,
-  setPage: () => {},
 });
 
 const SearchContextProvider = (props) => {
+  const limit = 7;
+
   const url = new URL(
     "http://api.mediastack.com/v1/news"
     // "https://tech-sport-b56c8-default-rtdb.firebaseio.com/tech.json" // Alternative url to avoid an infinite loop problem
@@ -29,12 +31,12 @@ const SearchContextProvider = (props) => {
   const [numberOfPages, setNumberOfPages] = useState(null);
 
   const addKeyword = (keyword, parameter) => {
+    console.log("addKW", keyword, parameter);
     if (keyword === undefined) {
       return;
     }
 
     var searchParams = new URLSearchParams(myUrl.search);
-    // console.log("Original search: ", myUrl.search);
 
     let keysAreEqual = false;
     searchParams.forEach(function (value, key) {
@@ -43,7 +45,6 @@ const SearchContextProvider = (props) => {
         keysAreEqual = true;
       } else if (key === keyword) {
         keysAreEqual = true;
-        console.log(key, " = ", keyword);
         value = parameter;
         setMyUrl(() => {
           if (myUrl !== undefined) {
@@ -63,8 +64,6 @@ const SearchContextProvider = (props) => {
         return myUrl;
       });
     }
-
-    // console.log("Modified search: ", myUrl.search);
   };
 
   const urlCallback = useCallback(async () => {
@@ -73,7 +72,6 @@ const SearchContextProvider = (props) => {
 
     try {
       const response = await fetch(myUrl);
-      // console.log("After response: ", myUrl.href);
 
       if (!response.ok) {
         throw new Error("Something went wrong! ");
@@ -81,8 +79,8 @@ const SearchContextProvider = (props) => {
 
       const data = await response.json();
 
+      // console.log("data.pag: ", data.pagination);
       console.log("After resp OK: ", myUrl.href);
-      // console.log("Data after resp OK: ", data);
 
       const categories = [];
 
@@ -96,20 +94,17 @@ const SearchContextProvider = (props) => {
       setIsLoading(false);
       setLoadedCategories(categories);
       setNumberOfPages(() => {
-        // if (typeof loadedCategories !== "undefined") {
-        console.log("loadedCat: ", categories);
-        console.log(
-          "total: ",
-          categories[0].total,
-          "limit: ",
-          categories[0].limit
-        );
-        const newnumberOfPages = Math.round(
+        const newNumberOfPages = Math.round(
           categories[0].total / categories[0].limit
         );
-        console.log("setNr of pages: ", newnumberOfPages);
-        // }
-        return newnumberOfPages;
+        // console.log("setNr of pages: ", newNumberOfPages);
+        // console.log(
+        //   "total: ",
+        //   categories[0].total,
+        //   "limit: ",
+        //   categories[0].limit
+        // );
+        return newNumberOfPages;
       });
     } catch (error) {
       setError(error.message);
@@ -117,9 +112,8 @@ const SearchContextProvider = (props) => {
     setIsLoading(false);
   }, [setIsLoading, myUrl]); // Struggling with the demons of Callback Hell... :( BUT SOLVED IT!!! :D
 
-  const setPage = () => {};
-
   const contextValue = {
+    limit: limit,
     addKeyword: addKeyword,
     isLoading: isLoading,
     loadedCategories: loadedCategories,
@@ -127,7 +121,6 @@ const SearchContextProvider = (props) => {
     myUrl: myUrl,
     urlCallback: urlCallback,
     numberOfPages: numberOfPages,
-    setPage: setPage,
   };
 
   return (
