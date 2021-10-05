@@ -44,7 +44,11 @@ const PaginationBasic = () => {
 
   const getPaginationGroup = () => {
     let start = Math.floor((currentPage - 1) / limit) * limit;
-    let paginationArray = [];
+    let paginationArray;
+    if (numberOfPages === 0) {
+      paginationArray = [];
+      return paginationArray;
+    }
     if (start <= numberOfPages - limit) {
       paginationArray = new Array(limit).fill().map((_, idx) => {
         return start + idx + 1;
@@ -59,37 +63,45 @@ const PaginationBasic = () => {
     return paginationArray;
   };
 
-  return (
-    <Pagination>
-      <Pagination.First
-        onClick={goToFirstPage}
-        className={`first ${currentPage === 1 ? "disabled" : ""}`}
-      />
-      <Pagination.Prev
-        onClick={goToPreviousPage}
-        className={`prev ${currentPage === 1 ? "disabled" : ""}`}
-      />
+  const paginationArray = getPaginationGroup();
+  let pagination;
+  if (paginationArray.length === 0) {
+    pagination = <></>;
+  } else {
+    pagination = (
+      <Pagination>
+        <Pagination.First
+          onClick={goToFirstPage}
+          className={`first ${currentPage === 1 ? "disabled" : ""}`}
+        />
+        <Pagination.Prev
+          onClick={goToPreviousPage}
+          className={`prev ${currentPage === 1 ? "disabled" : ""}`}
+        />
 
-      {getPaginationGroup().map((item, index) => (
-        <Pagination.Item
-          key={index}
-          onClick={changePage}
-          className={`${currentPage === item ? "activePage" : null}`}
-        >
-          {item}
-        </Pagination.Item>
-      ))}
+        {paginationArray.map((item, index) => (
+          <Pagination.Item
+            key={index}
+            onClick={changePage}
+            className={`${currentPage === item ? "activePage" : null}`}
+          >
+            {item}
+          </Pagination.Item>
+        ))}
 
-      <Pagination.Next
-        onClick={goToNextPage}
-        className={`next ${currentPage === numberOfPages ? "disabled" : ""}`}
-      />
-      <Pagination.Last
-        onClick={goToLastPage}
-        className={`last ${currentPage === numberOfPages ? "disabled" : ""}`}
-      />
-    </Pagination>
-  );
+        <Pagination.Next
+          onClick={goToNextPage}
+          className={`next ${currentPage === numberOfPages ? "disabled" : ""}`}
+        />
+        <Pagination.Last
+          onClick={goToLastPage}
+          className={`last ${currentPage === numberOfPages ? "disabled" : ""}`}
+        />
+      </Pagination>
+    );
+  }
+
+  return pagination;
 };
 
 export default PaginationBasic;

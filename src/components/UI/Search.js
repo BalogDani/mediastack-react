@@ -9,7 +9,7 @@ const Search = () => {
 
   const { addKeyword, urlCallback } = useContext(SearchContext);
 
-  const searchHandler = (event) => {
+  const searchHandler = () => {
     addKeyword("keywords", searchKeyword.current.value);
     urlCallback();
     searchKeyword.current.value = "";
