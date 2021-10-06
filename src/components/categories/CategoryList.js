@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import { Card } from "react-bootstrap";
+import { SearchContext } from "../../store/search-context";
 import CategoryItem from "./CategoryItem";
 import "./CategoryList.scss";
 
 const CategoryList = (props) => {
+  const { keyword } = useContext(SearchContext);
+
   let data;
   if (typeof props.categories[1] !== "undefined") {
     data = props.categories[1];
@@ -22,7 +26,7 @@ const CategoryList = (props) => {
         className="mb-2"
       >
         <Card.Body>
-          <h4>There is no article with the given keyword.</h4>
+          <h4>There is no article with the given keyword: "{keyword}".</h4>
         </Card.Body>
       </Card>
     );

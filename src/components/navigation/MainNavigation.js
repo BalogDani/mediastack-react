@@ -8,7 +8,9 @@ const MainNavigation = () => {
   return (
     <Navbar bg="dark" variant="dark" fixed="top">
       <Container>
-        <Navbar.Brand href="/">
+        <Navbar.Brand
+        // href="/"
+        >
           <img
             alt=""
             src={logo}

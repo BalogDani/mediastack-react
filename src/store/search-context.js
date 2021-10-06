@@ -12,6 +12,7 @@ export const SearchContext = React.createContext({
   ),
   urlCallback: () => {},
   numberOfPages: null,
+  keyword: "",
 });
 
 const SearchContextProvider = (props) => {
@@ -29,11 +30,15 @@ const SearchContextProvider = (props) => {
   const [loadedCategories, setLoadedCategories] = useState([]);
   const [error, setError] = useState(null);
   const [numberOfPages, setNumberOfPages] = useState(null);
+  const [keyword, setKeyword] = useState("");
 
   const addKeyword = (keyword, parameter) => {
     console.log("addKW", keyword, parameter);
     if (keyword === undefined) {
       return;
+    }
+    if (keyword === "keywords") {
+      setKeyword(parameter);
     }
 
     var searchParams = new URLSearchParams(myUrl.search);
@@ -121,6 +126,7 @@ const SearchContextProvider = (props) => {
     myUrl: myUrl,
     urlCallback: urlCallback,
     numberOfPages: numberOfPages,
+    keyword: keyword,
   };
 
   return (

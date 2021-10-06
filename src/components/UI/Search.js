@@ -15,6 +15,12 @@ const Search = () => {
     searchKeyword.current.value = "";
   };
 
+  const searchOnEnter = (event) => {
+    if (event.key === "Enter") {
+      searchHandler();
+    }
+  };
+
   return (
     <>
       <div>
@@ -23,6 +29,7 @@ const Search = () => {
           placeholder="Search here..."
           className="search"
           ref={searchKeyword}
+          onKeyPress={searchOnEnter}
         />
       </div>
       <div>
