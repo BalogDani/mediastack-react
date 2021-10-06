@@ -3,7 +3,6 @@ import Layout from "./components/layout/Layout";
 import "./App.scss";
 import CategoryPage from "./pages/CategoryPage";
 import SearchContextProvider from "./store/search-context";
-import FooterNavigation from "./components/navigation/FooterNavigation";
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
             <Redirect to="technology" />
           </Route>
         </Switch>
-        <FooterNavigation />
       </Layout>
     </SearchContextProvider>
   );

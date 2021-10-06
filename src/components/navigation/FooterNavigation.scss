@@ -1,24 +1,38 @@
 .pagination :first-child {
-  background-color: #212529;
-  border-color: #6c757d;
-  color: #6c757d;
-  border-radius: 8%;
   margin: 0;
 }
 
-.activePage :only-child {
+.pagination .page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #6c757d;
+  background-color: #212529;
+  border: 1px solid #6c757d;
+}
+.pagination .page-item.disabled .page-link {
+  color: #41464b;
   pointer-events: none;
+  // cursor: auto;
+  background-color: #212529;
+  border-color: #41464b;
+}
+.pagination .item.disabled :only-child {
   background-color: #6c757d;
-  border-color: #212529;
   color: #212529;
 }
-
-.first.disabled :last-child,
-.prev.disabled :last-child,
-.next.disabled :last-child,
-.last.disabled :last-child {
-  pointer-events: none;
-  box-shadow: none;
-  background-color: #212529;
+.pagination .page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #aeff5e;
+}
+.pagination .page-link:focus,
+.pagination .page-link:hover {
+  color: #212529;
+  text-decoration: none;
+  background-color: #6c757d;
   border-color: #212529;
 }

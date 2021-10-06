@@ -64,7 +64,7 @@ const CategoryPage = (props) => {
           style={{ width: "auto" }}
           bg="dark"
           text="white"
-          className="p-2 bg-dark headerMargin"
+          className="p-2 bg-dark"
         >
           <Card.Header>
             <h1>{headerTitle(props.category)}</h1>

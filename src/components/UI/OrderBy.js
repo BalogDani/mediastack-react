@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { NavDropdown } from "react-bootstrap";
 import { SearchContext } from "../../store/search-context";
 
 const OrderBy = (props) => {
@@ -6,15 +7,14 @@ const OrderBy = (props) => {
 
   const searchHandler = (event) => {
     event.preventDefault();
-    console.log("succ");
     addKeyword("sort", props.sort);
     urlCallback();
   };
   return (
     <>
-      <button className="orderBy" onClick={searchHandler}>
-        {props.by}
-      </button>
+      <NavDropdown.Item className="setPadding" onClick={searchHandler}>
+        <div className="setPadding">{props.by}</div>
+      </NavDropdown.Item>
     </>
   );
 };

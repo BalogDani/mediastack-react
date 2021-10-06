@@ -3,8 +3,19 @@ import logo from "../../logo.svg";
 import classes from "./MainNavigation.module.scss";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Search from "../UI/Search";
+import { useState } from "react";
 
 const MainNavigation = () => {
+  const [navDropdownIsOpen, setNavDropdownIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setNavDropdownIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setNavDropdownIsOpen(false);
+  };
+
   return (
     <Navbar bg="dark" variant="dark" fixed="top">
       <Container>
@@ -27,6 +38,9 @@ const MainNavigation = () => {
               title="Categories"
               id="basic-nav-dropdown"
               menuVariant="dark"
+              onMouseEnter={handleOpen}
+              onMouseLeave={handleClose}
+              show={navDropdownIsOpen}
             >
               <NavDropdown.Item href="/technology">Technology</NavDropdown.Item>
               <NavDropdown.Divider />

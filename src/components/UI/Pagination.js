@@ -72,18 +72,18 @@ const PaginationBasic = () => {
       <Pagination>
         <Pagination.First
           onClick={goToFirstPage}
-          className={`first ${currentPage === 1 ? "disabled" : ""}`}
+          className={`${currentPage === 1 ? "disabled" : ""}`}
         />
         <Pagination.Prev
           onClick={goToPreviousPage}
-          className={`prev ${currentPage === 1 ? "disabled" : ""}`}
+          className={`${currentPage === 1 ? "disabled" : ""}`}
         />
 
         {paginationArray.map((item, index) => (
           <Pagination.Item
             key={index}
             onClick={changePage}
-            className={`${currentPage === item ? "activePage" : null}`}
+            className={`item ${currentPage === item ? "disabled" : ""}`}
           >
             {item}
           </Pagination.Item>
@@ -91,11 +91,11 @@ const PaginationBasic = () => {
 
         <Pagination.Next
           onClick={goToNextPage}
-          className={`next ${currentPage === numberOfPages ? "disabled" : ""}`}
+          className={`${currentPage === numberOfPages ? "disabled" : ""}`}
         />
         <Pagination.Last
           onClick={goToLastPage}
-          className={`last ${currentPage === numberOfPages ? "disabled" : ""}`}
+          className={`${currentPage === numberOfPages ? "disabled" : ""}`}
         />
       </Pagination>
     );

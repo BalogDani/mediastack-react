@@ -63,13 +63,15 @@ const CustomCard = (props) => {
         <p className="column left">
           Published at: {convertFromStringToDate(props.published_at)}
         </p>
-        <ButtonLayout className="right">
-          <Link
-            target="_blank"
-            to={(location) => ({ ...location, pathname: props.url })}
-          >
-            Original Article
-          </Link>
+        <ButtonLayout>
+          <button className="article">
+            <Link
+              target="_blank"
+              to={(location) => ({ ...location, pathname: props.url })}
+            >
+              Original Article
+            </Link>
+          </button>
         </ButtonLayout>
       </Card.Body>
     </Card>

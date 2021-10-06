@@ -1,9 +1,20 @@
+import { useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import OrderBy from "../UI/OrderBy";
 import PaginationBasic from "../UI/Pagination";
 import "./FooterNavigation.scss";
 
-const FooterNavigation = (props) => {
+const FooterNavigation = () => {
+  const [navDropdownIsOpen, setNavDropdownIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setNavDropdownIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setNavDropdownIsOpen(false);
+  };
+
   return (
     <Navbar bg="dark" variant="dark" fixed="bottom">
       <Container className="justify-content-center">
@@ -13,14 +24,13 @@ const FooterNavigation = (props) => {
             id="basic-nav-dropdown"
             menuVariant="dark"
             className="dropup"
+            onMouseEnter={handleOpen}
+            onMouseLeave={handleClose}
+            show={navDropdownIsOpen}
           >
-            <NavDropdown.Item>
-              <OrderBy by="Descendening" sort="published_desc" />
-            </NavDropdown.Item>
+            <OrderBy by="Descendening" sort="published_desc" />
             <NavDropdown.Divider />
-            <NavDropdown.Item>
-              <OrderBy by="Ascendening" sort="published_asc" />
-            </NavDropdown.Item>
+            <OrderBy by="Ascendening" sort="published_asc" />
           </NavDropdown>
           <Nav.Item className="pagination">
             <PaginationBasic />
