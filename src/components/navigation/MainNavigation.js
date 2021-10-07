@@ -39,12 +39,15 @@ const MainNavigation = () => {
               id="basic-nav-dropdown"
               menuVariant="dark"
               onMouseEnter={handleOpen}
-              onMouseLeave={handleClose}
               show={navDropdownIsOpen}
             >
-              <NavDropdown.Item href="/technology">Technology</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="/sports">Sports</NavDropdown.Item>
+              <div onMouseLeave={handleClose}>
+                <NavDropdown.Item href="/technology">
+                  Technology
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="/sports">Sports</NavDropdown.Item>
+              </div>
             </NavDropdown>
           </Nav>
           <Search className="right" />

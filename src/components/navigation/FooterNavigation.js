@@ -25,12 +25,14 @@ const FooterNavigation = () => {
             menuVariant="dark"
             className="dropup"
             onMouseEnter={handleOpen}
-            onMouseLeave={handleClose}
+            // onMouseLeave={handleClose}
             show={navDropdownIsOpen}
           >
-            <OrderBy by="Descendening" sort="published_desc" />
-            <NavDropdown.Divider />
-            <OrderBy by="Ascendening" sort="published_asc" />
+            <div onMouseLeave={handleClose}>
+              <OrderBy by="Descendening" sort="published_desc" />
+              <NavDropdown.Divider />
+              <OrderBy by="Ascendening" sort="published_asc" />
+            </div>
           </NavDropdown>
           <Nav.Item className="pagination">
             <PaginationBasic />

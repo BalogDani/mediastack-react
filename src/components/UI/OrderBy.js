@@ -12,9 +12,7 @@ const OrderBy = (props) => {
   };
   return (
     <>
-      <NavDropdown.Item className="setPadding" onClick={searchHandler}>
-        <div className="setPadding">{props.by}</div>
-      </NavDropdown.Item>
+      <NavDropdown.Item onClick={searchHandler}>{props.by}</NavDropdown.Item>
     </>
   );
 };
